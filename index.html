@@ -413,7 +413,107 @@ body {
   color: #8090b0; text-align: center;
 }
 
-/* Team filter */
+/* ── PIN MODAL ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(1,36,56,.92); z-index: 100;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: #012438; border: 2px solid #f3ff00;
+  padding: 32px 28px; width: 300px; border-radius: 3px;
+  text-align: center;
+}
+.modal-title {
+  font-family: 'Rubik', sans-serif;
+  font-size: 22px; font-weight: 900; font-style: italic;
+  text-transform: uppercase; color: #f3ff00;
+  margin-bottom: 6px; letter-spacing: 1px;
+}
+.modal-sub {
+  font-size: 13px; font-weight: 600;
+  color: var(--sub); margin-bottom: 20px; letter-spacing: .5px;
+}
+.pin-input {
+  width: 100%; font-family: 'Rubik', sans-serif;
+  font-size: 32px; font-weight: 900; letter-spacing: 8px;
+  text-align: center; background: #071828;
+  border: 2px solid var(--bord2); color: #fff;
+  padding: 10px; border-radius: 2px; outline: none;
+  -webkit-text-security: disc;
+}
+.pin-input:focus { border-color: #f3ff00; }
+.pin-error {
+  color: #ff4455; font-size: 13px; font-weight: 700;
+  margin-top: 10px; min-height: 20px;
+}
+.modal-btn {
+  margin-top: 16px; width: 100%;
+  font-family: 'Rubik', sans-serif;
+  font-size: 16px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: 2px;
+  background: #f3ff00; color: #012438;
+  border: none; padding: 12px; border-radius: 2px;
+  cursor: pointer;
+}
+.modal-btn:hover { background: #e8f200; }
+.modal-cancel {
+  margin-top: 10px; background: transparent;
+  color: var(--muted); border: 1px solid var(--bord2);
+  font-family: 'Rubik', sans-serif; font-size: 13px;
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; width: 100%; padding: 8px;
+  border-radius: 2px; cursor: pointer;
+}
+
+/* Scorer mode indicator */
+.scorer-bar {
+  display: none; background: #f3ff00;
+  padding: 8px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.scorer-bar.hidden { display: none !important; }
+.scorer-bar-lbl {
+  font-family: 'Rubik', sans-serif;
+  font-size: 13px; font-weight: 900;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: #012438;
+}
+.scorer-lock-btn {
+  font-family: 'Rubik', sans-serif;
+  font-size: 12px; font-weight: 900;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  background: #012438; color: #f3ff00;
+  border: none; padding: 5px 12px; border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Hidden unlock trigger — triple-tap the title */
+.hdr { cursor: default; }
+
+/* Score inputs hidden in viewer mode */
+.viewer-mode .sc { pointer-events: none; opacity: .4; }
+.viewer-mode .sc::placeholder { opacity: 0; }
+.score-display {
+  font-family: 'Rubik', sans-serif;
+  font-size: 26px; font-weight: 900;
+  color: #fff; letter-spacing: 2px;
+  display: none;
+}
+.viewer-mode .score-entry .sc { display: none; }
+.viewer-mode .score-entry .sc-sep { display: none; }
+.viewer-mode .score-display { display: block; }
+
+/* Poll indicator */
+.live-dot {
+  display: inline-block; width: 8px; height: 8px;
+  background: #f3ff00; border-radius: 50%;
+  margin-right: 6px; animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; } 50% { opacity: .3; }
+}
 .filter-bar {
   padding: 12px 16px 0;
   display: flex; align-items: center; gap: 10px;
@@ -457,9 +557,28 @@ body {
 </style>
 </head>
 <body>
-<div class="page-wrap">
+<!-- PIN Modal -->
+<div class="modal-overlay" id="pin-modal">
+  <div class="modal">
+    <div class="modal-title">Scorer Login</div>
+    <div class="modal-sub">Enter your PIN to unlock score entry</div>
+    <input class="pin-input" id="pin-input" type="password" inputmode="numeric"
+      maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()">
+    <div class="pin-error" id="pin-error"></div>
+    <button class="modal-btn" onclick="checkPin()">Unlock</button>
+    <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
 
-<div class="hdr">
+<div class="page-wrap" id="page-wrap">
+
+<!-- Scorer bar -->
+<div class="scorer-bar hidden" id="scorer-bar">
+  <span class="scorer-bar-lbl"><span class="live-dot"></span>Scorer Mode Active</span>
+  <button class="scorer-lock-btn" onclick="lockScorer()">Lock</button>
+</div>
+
+<div class="hdr" id="main-hdr">
   <div class="hdr-corner-tl"></div>
   <div class="hdr-corner-br"></div>
   <div class="eyebrow">Garioch RFC &nbsp;&bull;&nbsp; Kellands Park &nbsp;&bull;&nbsp; Inverurie</div>
@@ -546,6 +665,106 @@ const SCHEDULE = [
 ];
 
 const SCORES = {};
+const STORAGE_KEY = 'garioch-festival-2026-scores';
+const PIN = '1977'; // ← change this to your PIN
+let isScorer = false;
+let pollInterval = null;
+
+// ── STORAGE ──────────────────────────────────────────────
+async function saveScores() {
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify(SCORES), true);
+  } catch(e) { console.warn('Save failed', e); }
+}
+
+async function loadScores() {
+  try {
+    const result = await window.storage.get(STORAGE_KEY, true);
+    if (result && result.value) {
+      const loaded = JSON.parse(result.value);
+      Object.assign(SCORES, loaded);
+    }
+  } catch(e) { console.warn('Load failed', e); }
+}
+
+function startPolling() {
+  if (pollInterval) clearInterval(pollInterval);
+  pollInterval = setInterval(async () => {
+    if (!isScorer) {
+      await loadScores();
+      renderStandings();
+      renderFixtures();
+    }
+  }, 5000); // poll every 5 seconds for viewers
+}
+
+// ── PIN / SCORER MODE ────────────────────────────────────
+let tapCount = 0; let tapTimer = null;
+
+document.getElementById('main-hdr').addEventListener('click', () => {
+  tapCount++;
+  if (tapTimer) clearTimeout(tapTimer);
+  tapTimer = setTimeout(() => { tapCount = 0; }, 600);
+  if (tapCount >= 3) {
+    tapCount = 0;
+    if (!isScorer) openModal();
+  }
+});
+
+function openModal() {
+  document.getElementById('pin-modal').classList.add('show');
+  document.getElementById('pin-input').value = '';
+  document.getElementById('pin-error').textContent = '';
+  setTimeout(() => document.getElementById('pin-input').focus(), 100);
+}
+
+function closeModal() {
+  document.getElementById('pin-modal').classList.remove('show');
+}
+
+function checkPin() {
+  const entered = document.getElementById('pin-input').value;
+  if (entered === PIN) {
+    closeModal();
+    enableScorer();
+  } else {
+    document.getElementById('pin-error').textContent = 'Incorrect PIN — try again';
+    document.getElementById('pin-input').value = '';
+    document.getElementById('pin-input').focus();
+  }
+}
+
+function enableScorer() {
+  isScorer = true;
+  document.getElementById('scorer-bar').classList.remove('hidden');
+  document.getElementById('page-wrap').classList.remove('viewer-mode');
+  if (pollInterval) clearInterval(pollInterval);
+  renderFixtures();
+}
+
+function lockScorer() {
+  isScorer = false;
+  document.getElementById('scorer-bar').classList.add('hidden');
+  document.getElementById('page-wrap').classList.add('viewer-mode');
+  startPolling();
+  renderFixtures();
+}
+
+// ── SCORE HANDLING ───────────────────────────────────────
+function handleScore(inp) {
+  if (!isScorer) return;
+  const k=inp.dataset.k, side=inp.dataset.side;
+  inp.value = inp.value.replace(/[^0-9]/g, '');
+  if (!SCORES[k]) SCORES[k]={h:'',a:''};
+  SCORES[k][side] = inp.value;
+  const pos = inp.selectionStart;
+  saveScores();
+  renderStandings();
+  renderFixtures();
+  const el = document.querySelector(`[data-k="${k}"][data-side="${side}"]`);
+  if (el) { el.focus(); el.setSelectionRange(pos, pos); }
+}
+
 function key(t1,t2){ return [t1,t2].sort().join('|'); }
 
 function colorBar(t){ return `<span class="std-color-bar ${BAR_CLS[t]}"></span>`; }
@@ -634,6 +853,7 @@ function renderFixtures(){
             <span class="sc-sep">:</span>
             <input class="sc" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="${s.a}" placeholder="—"
               data-k="${k}" data-side="a" oninput="handleScore(this)">
+            <div class="score-display">${s.h!==''&&s.a!==''?`${s.h} : ${s.a}`:'— : —'}</div>
           </div>
         </div>
         <div class="fix-side-r">
@@ -677,8 +897,17 @@ function showTab(name,btn){
   btn.classList.add('active');
 }
 
-renderStandings();
-renderFixtures();
+// ── INIT ─────────────────────────────────────────────────
+async function init() {
+  // Start in viewer mode
+  document.getElementById('page-wrap').classList.add('viewer-mode');
+  await loadScores();
+  renderStandings();
+  renderFixtures();
+  startPolling();
+}
+
+init();
 </script>
 </div>
 </body>
