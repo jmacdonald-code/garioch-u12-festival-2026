@@ -413,6 +413,47 @@ body {
   color: #8090b0; text-align: center;
 }
 
+/* Team filter */
+.filter-bar {
+  padding: 12px 16px 0;
+  display: flex; align-items: center; gap: 10px;
+}
+.filter-label {
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); flex-shrink: 0;
+}
+.filter-select {
+  flex: 1;
+  font-family: 'Rubik', sans-serif;
+  font-size: 15px; font-weight: 700;
+  background: var(--surf2);
+  color: #fff;
+  border: 2px solid var(--bord2);
+  padding: 8px 12px;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f3ff00' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+.filter-select:focus { border-color: var(--accent); }
+.filter-select option { background: #012438; color: #fff; }
+
+/* Highlighted fixture row */
+.fix-row.highlighted {
+  background: #f3ff00 !important;
+}
+.fix-row.highlighted .fix-team-name { color: #012438; }
+.fix-row.highlighted .fix-time-lbl  { color: #012438; opacity: .7; }
+.fix-row.highlighted .fix-rb.rb-w   { background: rgba(0,0,0,.12); color: #012438; border-color: rgba(0,0,0,.2); }
+.fix-row.highlighted .fix-rb.rb-l   { background: rgba(0,0,0,.12); color: #012438; border-color: rgba(0,0,0,.2); }
+.fix-row.highlighted .fix-rb.rb-d   { background: rgba(0,0,0,.12); color: #012438; border-color: rgba(0,0,0,.2); }
+
 </style>
 </head>
 <body>
@@ -451,6 +492,20 @@ body {
 </div>
 
 <div id="tab-fixtures" class="panel">
+  <div class="filter-bar">
+    <span class="filter-label">Highlight</span>
+    <select class="filter-select" id="team-filter" onchange="renderFixtures()">
+      <option value="">All teams</option>
+      <option>Ellon A</option>
+      <option>Ellon B</option>
+      <option>Garioch</option>
+      <option>Deeside</option>
+      <option>Mackie</option>
+      <option>Grammar</option>
+      <option>Moray</option>
+      <option>Pelicans</option>
+    </select>
+  </div>
   <div class="fix-wrap" id="fix-panel"></div>
 </div>
 
@@ -474,21 +529,20 @@ const BAR_CLS = {
 };
 
 const SCHEDULE = [
-  { time:'9:30', end:'9:39', games:[['Garioch','Deeside'],['Ellon B','Mackie']] },
-  { time:'9:43', end:'9:52', games:[['Deeside','Pelicans'],['Ellon A','Moray']] },
-  { time:'9:56', end:'10:05', games:[['Ellon A','Mackie'],['Ellon B','Grammar']] },
-  { time:'10:09', end:'10:18', games:[['Moray','Pelicans'],['Deeside','Mackie']] },
-  { time:'10:22', end:'10:31', games:[['Ellon B','Moray'],['Garioch','Grammar']] },
-  { time:'10:35', end:'10:44', games:[['Ellon A','Deeside'],['Mackie','Pelicans']] },
-  { time:'10:48', end:'10:57', games:[['Garioch','Moray'],['Mackie','Grammar']] },
-  { time:'11:01', end:'11:10', games:[['Ellon B','Deeside'],['Ellon A','Pelicans']] },
-  { time:'11:14', end:'11:23', games:[['Garioch','Mackie'],['Grammar','Moray']] },
-  { time:'11:27', end:'11:36', games:[['Garioch','Pelicans']] },
-  { time:'11:40', end:'11:49', games:[['Ellon A','Grammar'],['Deeside','Moray']] },
-  { time:'11:53', end:'12:02', games:[['Ellon B','Garioch']] },
-  { time:'12:06', end:'12:15', games:[['Mackie','Moray'],['Grammar','Pelicans']] },
-  { time:'12:19', end:'12:28', games:[['Ellon A','Garioch']] },
-  { time:'12:32', end:'12:41', games:[['Deeside','Grammar'],['Ellon B','Pelicans']] },
+  { time:'9:30',  end:'9:39',  games:[['Garioch','Pelicans'],['Moray','Deeside']] },
+  { time:'9:43',  end:'9:52',  games:[['Ellon B','Moray'],['Ellon A','Grammar']] },
+  { time:'9:56',  end:'10:05', games:[['Garioch','Mackie'],['Pelicans','Deeside']] },
+  { time:'10:09', end:'10:18', games:[['Grammar','Pelicans'],['Ellon A','Ellon B']] },
+  { time:'10:22', end:'10:31', games:[['Garioch','Ellon A'],['Deeside','Mackie']] },
+  { time:'10:35', end:'10:44', games:[['Ellon B','Mackie'],['Moray','Grammar']] },
+  { time:'10:48', end:'10:57', games:[['Garioch','Deeside'],['Ellon A','Pelicans']] },
+  { time:'11:01', end:'11:10', games:[['Ellon B','Grammar'],['Mackie','Moray']] },
+  { time:'11:14', end:'11:23', games:[['Garioch','Moray'],['Deeside','Ellon A']] },
+  { time:'11:27', end:'11:36', games:[['Pelicans','Mackie'],['Ellon B','Deeside']] },
+  { time:'11:40', end:'11:49', games:[['Garioch','Grammar'],['Pelicans','Moray']] },
+  { time:'11:53', end:'12:02', games:[['Deeside','Grammar'],['Ellon A','Mackie']] },
+  { time:'12:06', end:'12:15', games:[['Garioch','Ellon B'],['Ellon A','Moray']] },
+  { time:'12:19', end:'12:28', games:[['Mackie','Grammar'],['Ellon B','Pelicans']] },
 ];
 
 const SCORES = {};
@@ -548,6 +602,7 @@ const ABBREV = {
 
 function renderFixtures(){
   const panel=document.getElementById('fix-panel');
+  const filterTeam=(document.getElementById('team-filter')||{}).value||'';
   let html='<div class="sec-title">Fixtures &amp; Scores</div>';
   SCHEDULE.forEach((sl,si)=>{
     const roundTxt=`Round ${si+1}`;
@@ -563,8 +618,9 @@ function renderFixtures(){
         else if(a>h){r1=`<span class="fix-rb rb-l">L</span>`;r2=`<span class="fix-rb rb-w">W</span>`;}
         else{r1=`<span class="fix-rb rb-d">D</span>`;r2=`<span class="fix-rb rb-d">D</span>`;}
       }
+      const isHighlighted = filterTeam && (t1===filterTeam || t2===filterTeam);
       const pitchLbl=sl.games.length===2?`<div class="fix-time-lbl">P${gi+1} &bull; ${sl.time}</div>`:`<div class="fix-time-lbl">${sl.time}</div>`;
-      gamesHtml+=`<div class="fix-row">
+      gamesHtml+=`<div class="fix-row${isHighlighted?' highlighted':''}">
         <div class="fix-side">
           ${r1}
           <span class="fix-team-name">${t1}</span>
