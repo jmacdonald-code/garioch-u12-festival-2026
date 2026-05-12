@@ -38,63 +38,29 @@ body {
 }
 
 @media (min-width: 768px) {
-  .page-wrap {
-    max-width: 900px;
-  }
-  .fix-team-name {
-    font-size: 28px;
-  }
-  .team-logo {
-    width: 40px; height: 40px;
-  }
-  .fix-centre {
-    min-width: 120px;
-  }
-  .sc {
-    width: 52px; height: 42px;
-    font-size: 26px;
-  }
-  .round-label, .round-label-r {
-    width: 36px;
-    font-size: 12px;
-  }
-  .fix-row {
-    min-height: 58px;
-  }
-  .std-team-name {
-    font-size: 22px;
-  }
-  .std-stat {
-    font-size: 20px;
-    width: 48px;
-  }
-  .std-stat.pts {
-    font-size: 28px;
-    width: 58px;
-  }
-  .std-pos {
-    font-size: 36px;
-    width: 60px;
-  }
-  .team-logo-lg {
-    width: 34px; height: 34px;
-  }
-  .main-title {
-    font-size: 72px;
-  }
-  .eyebrow {
-    font-size: 16px;
-  }
-  .kickoff-line {
-    font-size: 28px;
-  }
-  .tab {
-    font-size: 18px;
-    padding: 16px 28px;
-  }
-  .std-hdr-stat { width: 48px; }
-  .std-hdr-pts  { width: 58px; }
-  .std-hdr-pos  { width: 60px; }
+  .page-wrap { max-width: 900px; }
+  .fix-team-name { font-size: 26px; }
+  .team-logo { width: 38px; height: 38px; }
+  .team-logo-lg { width: 32px; height: 32px; }
+  .fix-centre { width: 110px; }
+  .sc { width: 48px; height: 40px; font-size: 24px; }
+  .sc-sep { font-size: 20px; }
+  .round-label, .round-label-r { width: 32px; font-size: 11px; }
+  .fix-row { min-height: 54px; }
+  .fix-side, .fix-side-r { gap: 10px; padding: 6px 12px; }
+  .std-team-name { font-size: 20px; padding: 10px 10px; gap: 10px; }
+  .std-stat { font-size: 18px; width: 44px; }
+  .std-stat.pts { font-size: 26px; width: 54px; }
+  .std-pos { font-size: 32px; width: 54px; }
+  .std-color-bar { width: 8px; height: 36px; }
+  .main-title { font-size: 72px; }
+  .eyebrow { font-size: 16px; }
+  .kickoff-line { font-size: 28px; }
+  .tab { font-size: 18px; padding: 16px 28px; }
+  .std-hdr-stat { width: 44px; }
+  .std-hdr-pts  { width: 54px; }
+  .std-hdr-pos  { width: 54px; }
+  .fix-time-lbl { font-size: 11px; }
 }
 
 /* ── HEADER ── */
@@ -212,10 +178,10 @@ body {
 .std-row:hover { opacity: .92; }
 
 .std-pos {
-  font-size: 32px; font-weight: 900; font-style: italic;
+  font-size: 26px; font-weight: 900; font-style: italic;
   color: #012438;
-  width: 52px; text-align: center;
-  padding: 10px 0;
+  width: 38px; text-align: center;
+  padding: 8px 0;
   flex-shrink: 0;
   background: rgba(0,0,0,.06);
   border-right: 2px solid var(--bg2);
@@ -223,29 +189,30 @@ body {
 .std-pos.top { color: var(--bg2); }
 
 .std-team-name {
-  font-size: 20px; font-weight: 900;
-  text-transform: uppercase; letter-spacing: 1px;
+  font-size: 15px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: .5px;
   color: #012438;
-  flex: 1;
-  padding: 10px 10px;
-  display: flex; align-items: center; gap: 10px;
+  flex: 1; min-width: 0;
+  padding: 8px 6px;
+  display: flex; align-items: center; gap: 6px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 .std-stat {
-  font-size: 18px; font-weight: 700;
+  font-size: 14px; font-weight: 700;
   color: #012438;
-  width: 36px; text-align: center;
-  padding: 10px 0;
+  width: 26px; text-align: center;
+  padding: 8px 0;
   border-left: 1px solid rgba(0,0,0,.08);
+  flex-shrink: 0;
 }
 .std-stat.pts {
-  font-size: 30px; font-weight: 900;
+  font-size: 22px; font-weight: 900;
   color: #012438;
   -webkit-text-stroke: 1.5px #f3ff00;
   text-stroke: 1.5px #f3ff00;
-  width: 48px;
+  width: 38px;
   background: #012438;
-  color: #012438;
   -webkit-text-stroke: 2px #f3ff00;
 }
 .std-stat.w  { color: #012438; }
@@ -307,33 +274,33 @@ body {
 }
 
 .round-label {
-  width: 26px; flex-shrink: 0;
+  width: 22px; flex-shrink: 0;
   background: #f3ff00;
   display: flex; align-items: center; justify-content: center;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  font-size: 10px; font-weight: 900;
+  font-size: 9px; font-weight: 900;
   letter-spacing: 3px; text-transform: uppercase;
   color: #012438;
 }
 .round-label-r {
-  width: 26px; flex-shrink: 0;
+  width: 22px; flex-shrink: 0;
   background: #f3ff00;
   display: flex; align-items: center; justify-content: center;
   writing-mode: vertical-rl;
-  font-size: 10px; font-weight: 900;
+  font-size: 9px; font-weight: 900;
   letter-spacing: 3px; text-transform: uppercase;
   color: #012438;
 }
 
-.games-stack { flex: 1; display: flex; flex-direction: column; }
+.games-stack { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 
 .fix-row {
   display: flex; align-items: stretch;
   background: #ffffff;
   border-bottom: 1px solid #e0e4ec;
   overflow: hidden;
-  min-height: 42px;
+  min-height: 38px;
 }
 .fix-row:last-child { border-bottom: none; }
 .fix-row:nth-child(even) { background: #f4f6fa; }
@@ -341,31 +308,35 @@ body {
 .fix-side {
   flex: 1; display: flex; align-items: center;
   justify-content: flex-end;
-  gap: 8px; padding: 5px 10px;
+  gap: 6px; padding: 5px 6px;
+  min-width: 0;
 }
 .fix-side-r {
   flex: 1; display: flex; align-items: center;
   justify-content: flex-start;
-  gap: 8px; padding: 5px 10px;
+  gap: 6px; padding: 5px 6px;
+  min-width: 0;
 }
 
 .fix-team-name {
-  font-size: 22px; font-weight: 900; font-style: italic;
-  text-transform: uppercase; letter-spacing: 1px;
+  font-size: 17px; font-weight: 900; font-style: italic;
+  text-transform: uppercase; letter-spacing: .5px;
   color: #012438; line-height: 1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  min-width: 0;
 }
 .team-logo {
-  width: 28px; height: 28px;
+  width: 24px; height: 24px;
   object-fit: contain; flex-shrink: 0;
 }
 .team-logo-lg {
-  width: 26px; height: 26px;
+  width: 22px; height: 22px;
   object-fit: contain; flex-shrink: 0;
 }
 .fix-rb {
   font-size: 10px; font-weight: 900;
   letter-spacing: 1px; text-transform: uppercase;
-  padding: 2px 6px; border-radius: 2px; white-space: nowrap;
+  padding: 2px 6px; border-radius: 2px; white-space: nowrap; flex-shrink: 0;
 }
 .rb-w { background: rgba(24,168,74,.15); color: #0e7a34; border: 1px solid rgba(24,168,74,.4); }
 .rb-l { background: rgba(224,16,16,.12); color: #b00808; border: 1px solid rgba(224,16,16,.3); }
@@ -374,30 +345,30 @@ body {
 .fix-centre {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 4px 6px; gap: 2px;
-  flex-shrink: 0; min-width: 88px;
+  padding: 4px 4px; gap: 2px;
+  flex-shrink: 0; width: 76px;
   background: #012438;
 }
 .fix-time-lbl {
-  font-size: 10px; font-weight: 700;
+  font-size: 9px; font-weight: 700;
   letter-spacing: 1px; text-transform: uppercase;
   color: #f3ff00;
 }
-.score-entry { display: flex; align-items: center; gap: 4px; }
+.score-entry { display: flex; align-items: center; gap: 3px; }
 .sc {
-  width: 40px; height: 32px;
+  width: 32px; height: 28px;
   background: #011828;
-  border: 2px solid rgba(200,255,0,.25);
+  border: 2px solid rgba(243,255,0,.25);
   color: #fff;
   font-family: 'Rubik', sans-serif;
-  font-size: 20px; font-weight: 900;
+  font-size: 17px; font-weight: 900;
   text-align: center; border-radius: 2px;
   outline: none; transition: border-color .15s;
   -moz-appearance: none;
 }
 .sc::-webkit-inner-spin-button, .sc::-webkit-outer-spin-button { display: none; }
-.sc:focus { border-color: var(--accent); background: rgba(200,255,0,.08); }
-.sc-sep { font-size: 20px; font-weight: 900; color: var(--accent); }
+.sc:focus { border-color: var(--accent); background: rgba(243,255,0,.08); }
+.sc-sep { font-size: 16px; font-weight: 900; color: var(--accent); }
 
 .pitch-tag {
   font-size: 9px; font-weight: 900;
@@ -665,24 +636,76 @@ const SCHEDULE = [
 ];
 
 const SCORES = {};
-const STORAGE_KEY = 'garioch-festival-2026-scores';
 const PIN = '1977'; // ← change this to your PIN
 let isScorer = false;
 let pollInterval = null;
 
-// ── STORAGE ──────────────────────────────────────────────
-async function saveScores() {
+// ── JSONBIN CONFIG ───────────────────────────────────────
+// 1. Sign up free at https://jsonbin.io (use GitHub login)
+// 2. Go to API Keys and copy your Master Key
+// 3. Paste it below
+// 4. On first load as scorer, a bin will be created automatically
+const JSONBIN_API_KEY = '$2a$10$r9/wEwu5M9JhKZiHDAjy7OLP7Jt0TnjiJ72tunto58tqG3gzmbyBW';
+const JSONBIN_BIN_ID_KEY = 'garioch2026-bin-id'; // stored in localStorage
+const JSONBIN_BASE = 'https://api.jsonbin.io/v3/b';
+
+async function getBinId() {
+  return localStorage.getItem(JSONBIN_BIN_ID_KEY) || null;
+}
+
+async function createBin() {
   try {
-    await window.storage.set(STORAGE_KEY, JSON.stringify(SCORES), true);
+    const res = await fetch(JSONBIN_BASE, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': JSONBIN_API_KEY,
+        'X-Bin-Name': 'garioch-festival-2026',
+        'X-Bin-Private': 'false',
+      },
+      body: JSON.stringify({ scores: {} })
+    });
+    const data = await res.json();
+    const id = data.metadata?.id;
+    if (id) {
+      localStorage.setItem(JSONBIN_BIN_ID_KEY, id);
+      console.log('Bin created:', id);
+      return id;
+    }
+  } catch(e) { console.warn('Create bin failed', e); }
+  return null;
+}
+
+async function saveScores() {
+  if (JSONBIN_API_KEY === 'YOUR_API_KEY_HERE') return;
+  let binId = await getBinId();
+  if (!binId) binId = await createBin();
+  if (!binId) return;
+  try {
+    await fetch(`${JSONBIN_BASE}/${binId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': JSONBIN_API_KEY,
+        'X-Bin-Versioning': 'false',
+      },
+      body: JSON.stringify({ scores: SCORES })
+    });
   } catch(e) { console.warn('Save failed', e); }
 }
 
 async function loadScores() {
+  if (JSONBIN_API_KEY === 'YOUR_API_KEY_HERE') return;
+  const binId = await getBinId();
+  if (!binId) return;
   try {
-    const result = await window.storage.get(STORAGE_KEY, true);
-    if (result && result.value) {
-      const loaded = JSON.parse(result.value);
-      Object.assign(SCORES, loaded);
+    const res = await fetch(`${JSONBIN_BASE}/${binId}/latest`, {
+      headers: { 'X-Master-Key': JSONBIN_API_KEY }
+    });
+    const data = await res.json();
+    if (data.record?.scores) {
+      Object.keys(SCORES).forEach(k => delete SCORES[k]);
+      Object.assign(SCORES, data.record.scores);
     }
   } catch(e) { console.warn('Load failed', e); }
 }
@@ -701,15 +724,19 @@ function startPolling() {
 // ── PIN / SCORER MODE ────────────────────────────────────
 let tapCount = 0; let tapTimer = null;
 
-document.getElementById('main-hdr').addEventListener('click', () => {
+function handleHdrTap() {
   tapCount++;
   if (tapTimer) clearTimeout(tapTimer);
-  tapTimer = setTimeout(() => { tapCount = 0; }, 600);
+  tapTimer = setTimeout(() => { tapCount = 0; }, 800);
   if (tapCount >= 3) {
     tapCount = 0;
     if (!isScorer) openModal();
   }
-});
+}
+
+const hdr = document.getElementById('main-hdr');
+hdr.addEventListener('touchend', (e) => { e.preventDefault(); handleHdrTap(); });
+hdr.addEventListener('click', handleHdrTap);
 
 function openModal() {
   document.getElementById('pin-modal').classList.add('show');
@@ -901,6 +928,11 @@ function showTab(name,btn){
 async function init() {
   // Start in viewer mode
   document.getElementById('page-wrap').classList.add('viewer-mode');
+
+  if (JSONBIN_API_KEY === 'YOUR_API_KEY_HERE') {
+    console.warn('JSONBin API key not set — scores will not persist');
+  }
+
   await loadScores();
   renderStandings();
   renderFixtures();
