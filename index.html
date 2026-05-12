@@ -7,19 +7,19 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg:      #0a1628;
-  --bg2:     #071020;
-  --row:     #0f2040;
-  --row-alt: #0d1c38;
-  --accent:  #d4f000;
+  --bg:      #012438;
+  --bg2:     #011828;
+  --row:     #01304a;
+  --row-alt: #012438;
+  --accent:  #f3ff00;
   --accent2: #ffe000;
   --neon:    #00ffaa;
   --text:    #ffffff;
   --sub:     #a0c0e8;
   --muted:   #5080a8;
-  --score-bg:#d4f000;
+  --score-bg:#f3ff00;
   --score-fg:#1a0060;
-  --win:     #d4f000;
+  --win:     #f3ff00;
   --loss:    #ff4455;
   --draw:    #ffe000;
 }
@@ -35,6 +35,66 @@ body {
   margin: 0 auto;
   background: var(--bg);
   box-shadow: 0 0 60px rgba(0,0,0,.6);
+}
+
+@media (min-width: 768px) {
+  .page-wrap {
+    max-width: 900px;
+  }
+  .fix-team-name {
+    font-size: 28px;
+  }
+  .team-logo {
+    width: 40px; height: 40px;
+  }
+  .fix-centre {
+    min-width: 120px;
+  }
+  .sc {
+    width: 52px; height: 42px;
+    font-size: 26px;
+  }
+  .round-label, .round-label-r {
+    width: 36px;
+    font-size: 12px;
+  }
+  .fix-row {
+    min-height: 58px;
+  }
+  .std-team-name {
+    font-size: 22px;
+  }
+  .std-stat {
+    font-size: 20px;
+    width: 48px;
+  }
+  .std-stat.pts {
+    font-size: 28px;
+    width: 58px;
+  }
+  .std-pos {
+    font-size: 36px;
+    width: 60px;
+  }
+  .team-logo-lg {
+    width: 34px; height: 34px;
+  }
+  .main-title {
+    font-size: 72px;
+  }
+  .eyebrow {
+    font-size: 16px;
+  }
+  .kickoff-line {
+    font-size: 28px;
+  }
+  .tab {
+    font-size: 18px;
+    padding: 16px 28px;
+  }
+  .std-hdr-stat { width: 48px; }
+  .std-hdr-pts  { width: 58px; }
+  .std-hdr-pos  { width: 60px; }
 }
 
 /* ── HEADER ── */
@@ -153,7 +213,7 @@ body {
 
 .std-pos {
   font-size: 32px; font-weight: 900; font-style: italic;
-  color: #0a1628;
+  color: #012438;
   width: 52px; text-align: center;
   padding: 10px 0;
   flex-shrink: 0;
@@ -165,7 +225,7 @@ body {
 .std-team-name {
   font-size: 20px; font-weight: 900;
   text-transform: uppercase; letter-spacing: 1px;
-  color: #0a0f1e;
+  color: #012438;
   flex: 1;
   padding: 10px 10px;
   display: flex; align-items: center; gap: 10px;
@@ -173,24 +233,24 @@ body {
 
 .std-stat {
   font-size: 18px; font-weight: 700;
-  color: #0a1628;
+  color: #012438;
   width: 36px; text-align: center;
   padding: 10px 0;
   border-left: 1px solid rgba(0,0,0,.08);
 }
 .std-stat.pts {
   font-size: 30px; font-weight: 900;
-  color: #0a1628;
-  -webkit-text-stroke: 1.5px #d4f000;
-  text-stroke: 1.5px #d4f000;
+  color: #012438;
+  -webkit-text-stroke: 1.5px #f3ff00;
+  text-stroke: 1.5px #f3ff00;
   width: 48px;
-  background: #0a1628;
-  color: #0a1628;
-  -webkit-text-stroke: 2px #d4f000;
+  background: #012438;
+  color: #012438;
+  -webkit-text-stroke: 2px #f3ff00;
 }
-.std-stat.w  { color: #0a1628; }
-.std-stat.l  { color: #0a1628; }
-.std-stat.d  { color: #0a1628; }
+.std-stat.w  { color: #012438; }
+.std-stat.l  { color: #012438; }
+.std-stat.d  { color: #012438; }
 .std-color-bar {
   width: 8px; height: 36px; border-radius: 2px; flex-shrink: 0;
 }
@@ -222,7 +282,7 @@ body {
 .std-hdrs {
   display: flex; align-items: center;
   margin-bottom: 4px; padding-right: 0;
-  background: #0a1628;
+  background: #012438;
   border-radius: 2px 2px 0 0;
 }
 .std-hdr-pos  { width: 52px; text-align: center; }
@@ -248,22 +308,22 @@ body {
 
 .round-label {
   width: 26px; flex-shrink: 0;
-  background: #d4f000;
+  background: #f3ff00;
   display: flex; align-items: center; justify-content: center;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   font-size: 10px; font-weight: 900;
   letter-spacing: 3px; text-transform: uppercase;
-  color: #0a1628;
+  color: #012438;
 }
 .round-label-r {
   width: 26px; flex-shrink: 0;
-  background: #d4f000;
+  background: #f3ff00;
   display: flex; align-items: center; justify-content: center;
   writing-mode: vertical-rl;
   font-size: 10px; font-weight: 900;
   letter-spacing: 3px; text-transform: uppercase;
-  color: #0a1628;
+  color: #012438;
 }
 
 .games-stack { flex: 1; display: flex; flex-direction: column; }
@@ -290,9 +350,9 @@ body {
 }
 
 .fix-team-name {
-  font-size: 26px; font-weight: 900; font-style: italic;
+  font-size: 22px; font-weight: 900; font-style: italic;
   text-transform: uppercase; letter-spacing: 1px;
-  color: #0a0f1e; line-height: 1;
+  color: #012438; line-height: 1;
 }
 .team-logo {
   width: 28px; height: 28px;
@@ -316,17 +376,17 @@ body {
   align-items: center; justify-content: center;
   padding: 4px 6px; gap: 2px;
   flex-shrink: 0; min-width: 88px;
-  background: #0a1628;
+  background: #012438;
 }
 .fix-time-lbl {
   font-size: 10px; font-weight: 700;
   letter-spacing: 1px; text-transform: uppercase;
-  color: #d4f000;
+  color: #f3ff00;
 }
 .score-entry { display: flex; align-items: center; gap: 4px; }
 .sc {
   width: 40px; height: 32px;
-  background: #071020;
+  background: #011828;
   border: 2px solid rgba(200,255,0,.25);
   color: #fff;
   font-family: 'Rubik', sans-serif;
@@ -363,7 +423,7 @@ body {
   <div class="hdr-corner-br"></div>
   <div class="eyebrow">Garioch RFC &nbsp;&bull;&nbsp; Kellands Park &nbsp;&bull;&nbsp; Inverurie</div>
   <div class="main-title">U12's Festival 2026</div>
-  <div class="kickoff-line">10:00 Kickoff</div>
+  <div class="kickoff-line">09:30 Kickoff</div>
 </div>
 
 <div class="tabs">
@@ -414,21 +474,21 @@ const BAR_CLS = {
 };
 
 const SCHEDULE = [
-  { time:'10:00', end:'10:10', games:[['Garioch','Mackie'],['Ellon A','Deeside']] },
-  { time:'10:14', end:'10:24', games:[['Grammar','Moray'],['Ellon B','Pelicans']] },
-  { time:'10:28', end:'10:38', games:[['Garioch','Deeside']] },
-  { time:'10:42', end:'10:52', games:[['Ellon A','Mackie'],['Garioch','Moray']] },
-  { time:'10:56', end:'11:06', games:[['Ellon B','Deeside'],['Grammar','Pelicans']] },
-  { time:'11:10', end:'11:20', games:[['Ellon B','Garioch'],['Ellon A','Moray']] },
-  { time:'11:24', end:'11:34', games:[['Mackie','Grammar'],['Deeside','Pelicans']] },
-  { time:'11:38', end:'11:48', games:[['Garioch','Pelicans'],['Ellon B','Moray']] },
-  { time:'11:52', end:'12:02', games:[['Deeside','Grammar'],['Mackie','Moray']] },
-  { time:'12:06', end:'12:16', games:[['Ellon B','Mackie'],['Ellon A','Pelicans']] },
-  { time:'12:20', end:'12:30', games:[['Garioch','Grammar']] },
-  { time:'12:34', end:'12:44', games:[['Moray','Pelicans'],['Deeside','Mackie']] },
-  { time:'12:48', end:'12:58', games:[['Ellon A','Garioch']] },
-  { time:'13:02', end:'13:12', games:[['Deeside','Moray'],['Ellon B','Grammar']] },
-  { time:'13:16', end:'13:26', games:[['Mackie','Pelicans'],['Ellon A','Grammar']] },
+  { time:'9:30', end:'9:39', games:[['Garioch','Deeside'],['Ellon B','Mackie']] },
+  { time:'9:43', end:'9:52', games:[['Deeside','Pelicans'],['Ellon A','Moray']] },
+  { time:'9:56', end:'10:05', games:[['Ellon A','Mackie'],['Ellon B','Grammar']] },
+  { time:'10:09', end:'10:18', games:[['Moray','Pelicans'],['Deeside','Mackie']] },
+  { time:'10:22', end:'10:31', games:[['Ellon B','Moray'],['Garioch','Grammar']] },
+  { time:'10:35', end:'10:44', games:[['Ellon A','Deeside'],['Mackie','Pelicans']] },
+  { time:'10:48', end:'10:57', games:[['Garioch','Moray'],['Mackie','Grammar']] },
+  { time:'11:01', end:'11:10', games:[['Ellon B','Deeside'],['Ellon A','Pelicans']] },
+  { time:'11:14', end:'11:23', games:[['Garioch','Mackie'],['Grammar','Moray']] },
+  { time:'11:27', end:'11:36', games:[['Garioch','Pelicans']] },
+  { time:'11:40', end:'11:49', games:[['Ellon A','Grammar'],['Deeside','Moray']] },
+  { time:'11:53', end:'12:02', games:[['Ellon B','Garioch']] },
+  { time:'12:06', end:'12:15', games:[['Mackie','Moray'],['Grammar','Pelicans']] },
+  { time:'12:19', end:'12:28', games:[['Ellon A','Garioch']] },
+  { time:'12:32', end:'12:41', games:[['Deeside','Grammar'],['Ellon B','Pelicans']] },
 ];
 
 const SCORES = {};
@@ -507,7 +567,7 @@ function renderFixtures(){
       gamesHtml+=`<div class="fix-row">
         <div class="fix-side">
           ${r1}
-          <span class="fix-team-name">${ABBREV[t1]}</span>
+          <span class="fix-team-name">${t1}</span>
           <img class="team-logo" src="${LOGOS[t1]}" alt="${t1}">
         </div>
         <div class="fix-centre">
@@ -522,7 +582,7 @@ function renderFixtures(){
         </div>
         <div class="fix-side-r">
           <img class="team-logo" src="${LOGOS[t2]}" alt="${t2}">
-          <span class="fix-team-name">${ABBREV[t2]}</span>
+          <span class="fix-team-name">${t2}</span>
           ${r2}
         </div>
       </div>`;
